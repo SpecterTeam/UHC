@@ -70,9 +70,9 @@ class UHC extends PluginBase
     public function onEnable()
     {
         self::setInstance($this);
+        $this->registerConfig();
         $this->registerManagers();
         $this->registerListeners();
-        $this->registerConfig();
     }
 
     /**
