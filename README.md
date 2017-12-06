@@ -1,7 +1,7 @@
 # UHC [WIP]
 A full custom UHCs Hosting plugin for PMMP.
 
-**DISCLAIMER:** No Forks are supported.
+**DISCLAIMER:** All PocketMine's Forks aren't supported.
 
 ## Authors
 - [@OGFris](https://twitter.com/OGFris)
