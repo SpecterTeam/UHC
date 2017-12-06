@@ -5,5 +5,4 @@ A full custom UHCs Hosting plugin for PMMP.
 
 # Authors
 - [@OGFris](https://twitter.com/OGFris)
-- [@Havtic](https://twitter.com/Havtic)
 - [@Infernus101](https://twitter.com/Infernus101)
