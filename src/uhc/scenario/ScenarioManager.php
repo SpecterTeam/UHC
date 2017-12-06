@@ -53,7 +53,7 @@ class ScenarioManager
         if($force){
             self::$scenarios[$scenario->getName()] = $scenario;
         } else {
-            if (isset(self::$scenarios[$scenario->getName()])) {
+            if (!isset(self::$scenarios[$scenario->getName()])) {
                 self::$scenarios[$scenario->getName()] = $scenario;
             } else {
                 throw new PluginException("Scenario is already registered!");
