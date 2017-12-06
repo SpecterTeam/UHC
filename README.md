@@ -3,6 +3,6 @@ A full custom UHCs Hosting plugin for PMMP.
 
 **DISCLAIMER:** No Forks are supported.
 
-# Authors
+## Authors
 - [@OGFris](https://twitter.com/OGFris)
 - [@Infernus101](https://twitter.com/Infernus101)
