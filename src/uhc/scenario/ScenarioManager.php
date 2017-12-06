@@ -50,10 +50,14 @@ class ScenarioManager
      */
     public static function registerScenario(Scenario $scenario, bool $force = false)
     {
-        if(isset(self::$scenarios[$scenario->getName()]) and $force){
+        if($force){
             self::$scenarios[$scenario->getName()] = $scenario;
         } else {
-            throw new PluginException("Scenario is already registered!");
+            if (isset(self::$scenarios[$scenario->getName()])) {
+                self::$scenarios[$scenario->getName()] = $scenario;
+            } else {
+                throw new PluginException("Scenario is already registered!");
+            }
         }
     }
 
