@@ -16,6 +16,7 @@ class LangManager
     //TODO: More languages
 
     const DEFAULT_LANG = "eng";
+    const LANGS_FOLDER = "lang";
 
     const START_GAME = "start.game";
     const STOP_GAME = "stop.game";
@@ -26,19 +27,28 @@ class LangManager
 
     private static $langs = [];
 
+    /**
+     * LangManager constructor.
+     * @param UHC $plugin
+     */
     public function __construct(UHC $plugin)
     {
         $this->setPlugin($plugin);
+        $this->registerDefaultLanguage();
+        if(!is_dir($plugin->getDataFolder() . self::LANGS_FOLDER)){
+            @mkdir($plugin->getDataFolder() . self::LANGS_FOLDER);
+        }
     }
 
     public function registerDefaultLanguage()
     {
+        //TODO: Custom lang support
         $messages = [
             self::START_GAME => "{prefix} the game has started!",
             self::STOP_GAME => "{prefix} the game has stopped!",
             self::END_GAME => "{prefix} the game has ended!"
         ];
-        $config = new Config($this->getPlugin()->getDataFolder() . self::DEFAULT_LANG . ".yml", Config::YAML, $messages);
+        $config = new Config($this->getPlugin()->getDataFolder() . self::LANGS_FOLDER . DIRECTORY_SEPARATOR . self::DEFAULT_LANG . ".yml", Config::YAML, $messages);
         self::$langs["eng"] = $config->getAll(true);
     }
 

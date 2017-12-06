@@ -4,6 +4,7 @@ namespace uhc;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
+use uhc\listener\PlayerListener;
 use uhc\listener\ScenarioListener;
 use uhc\scenario\ScenarioManager;
 use uhc\task\UHCTask;
@@ -13,7 +14,7 @@ class UHC extends PluginBase
     const CONFIG_FILE = "config.yml";
 
     public static $instance;
-    public static $uhcmanager, $scenariomanager;
+    public static $uhcmanager, $scenariomanager, $langmanager;
     public static $config;
 
     /**
@@ -30,6 +31,22 @@ class UHC extends PluginBase
     public static function setConfigFile(Config $config)
     {
         self::$config = $config;
+    }
+
+    /**
+     * @return LangManager
+     */
+    public static function getLangmanager() : LangManager
+    {
+        return self::$langmanager;
+    }
+
+    /**
+     * @param LangManager $langmanager
+     */
+    public static function setLangmanager(LangManager $langmanager)
+    {
+        self::$langmanager = $langmanager;
     }
 
     public function registerConfig()
@@ -75,12 +92,14 @@ class UHC extends PluginBase
     public function registerManagers()
     {
         self::setScenariomanager(new ScenarioManager($this));
-        self::setUHCManager(new UHCManager($this, "UHC", $this->getServer()->getDefaultLevel())); //TODO: Make player able to config his own world
+        self::setUHCManager(new UHCManager($this, self::getConfigFile()->getAll(true)["levels"]["game"]));
+        self::setLangmanager(new LangManager($this));
     }
 
     public function registerListeners()
     {
         new ScenarioListener($this);
+        new PlayerListener($this);
     }
 
     /**

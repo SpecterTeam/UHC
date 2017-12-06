@@ -9,6 +9,8 @@
 namespace uhc;
 
 
+use pocketmine\level\generator\Generator;
+use pocketmine\level\generator\normal\Normal;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
 use pocketmine\utils\TextFormat;
@@ -24,12 +26,18 @@ class UHCManager
      * UHCManager constructor.
      * @param UHC $plugin
      * @param string $name
-     * @param Level $level
      */
-    public function __construct(UHC $plugin, string $name, Level $level)
+    public function __construct(UHC $plugin, string $name)
     {
         $this->setPlugin($plugin);
         $this->setName($name);
+        if($plugin->getServer()->isLevelGenerated($name)){
+            $plugin->getServer()->loadLevel($name);
+            $level = $plugin->getServer()->getLevelByName($name);
+        } else {
+            $plugin->getServer()->generateLevel($name, null, Generator::getGeneratorName(Normal::class));
+            $level = $plugin->getServer()->getLevelByName($name);
+        }
         $this->setLevel($level);
     }
 
