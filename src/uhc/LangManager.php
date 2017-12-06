@@ -35,10 +35,10 @@ class LangManager
     public function __construct(UHC $plugin)
     {
         $this->setPlugin($plugin);
-        $this->registerDefaultLanguage();
         if(!is_dir($plugin->getDataFolder() . self::LANGS_FOLDER)){
             @mkdir($plugin->getDataFolder() . self::LANGS_FOLDER);
         }
+        $this->registerDefaultLanguage();
     }
 
     public function registerDefaultLanguage()
