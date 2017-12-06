@@ -72,6 +72,7 @@ class UHC extends PluginBase
         self::setInstance($this);
         $this->registerManagers();
         $this->registerListeners();
+        $this->registerConfig();
     }
 
     /**
