@@ -105,7 +105,7 @@ class ScenarioManager
     public function doMove(PlayerMoveEvent $event)
     {
         foreach (self::getScenarios() as $scenario){
-            $scenario->onMove($event);
+            if($scenario->isEnabled()) $scenario->onMove($event);
         }
     }
 
@@ -115,7 +115,7 @@ class ScenarioManager
     public function doBreak(BlockBreakEvent $event)
     {
         foreach (self::getScenarios() as $scenario){
-            $scenario->onBreak($event);
+            if($scenario->isEnabled()) $scenario->onBreak($event);
         }
     }
 
@@ -125,7 +125,7 @@ class ScenarioManager
     public function doPlace(BlockPlaceEvent $event)
     {
         foreach (self::getScenarios() as $scenario){
-            $scenario->onPlace($event);
+            if($scenario->isEnabled()) $scenario->onPlace($event);
         }
     }
 
@@ -135,7 +135,7 @@ class ScenarioManager
     public function doDeath(PlayerDeathEvent $event)
     {
         foreach (self::getScenarios() as $scenario){
-            $scenario->onDeath($event);
+            if($scenario->isEnabled()) $scenario->onDeath($event);
         }
     }
 
@@ -145,7 +145,7 @@ class ScenarioManager
     public function doStart(StartUHCEvent $event)
     {
         foreach (self::getScenarios() as $scenario){
-            $scenario->onStart($event);
+            if($scenario->isEnabled()) $scenario->onStart($event);
         }
     }
 }

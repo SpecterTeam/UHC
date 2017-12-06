@@ -21,6 +21,7 @@ class LangManager
     const START_GAME = "start.game";
     const STOP_GAME = "stop.game";
     const END_GAME = "end.game";
+    const DEATH = "died";
 
     private $default = self::DEFAULT_LANG;
     private $plugin;
@@ -46,7 +47,8 @@ class LangManager
         $messages = [
             self::START_GAME => "{prefix} the game has started!",
             self::STOP_GAME => "{prefix} the game has stopped!",
-            self::END_GAME => "{prefix} the game has ended!"
+            self::END_GAME => "{prefix} the game has ended!",
+            self::DEATH => "{prefix} {death} died."
         ];
         $config = new Config($this->getPlugin()->getDataFolder() . self::LANGS_FOLDER . DIRECTORY_SEPARATOR . self::DEFAULT_LANG . ".yml", Config::YAML, $messages);
         self::$langs["eng"] = $config->getAll(true);

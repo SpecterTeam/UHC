@@ -8,19 +8,18 @@
 
 namespace uhc;
 
-
 use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\normal\Normal;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
-use pocketmine\utils\TextFormat;
 use uhc\events\StartUHCEvent;
+use uhc\task\UHCTask;
 
 class UHCManager
 {
     const DEFAULT_NAME = "UHC";
 
-    private $plugin, $level, $name = self::DEFAULT_NAME, $started = false, $players = [];
+    private $plugin, $level, $name = self::DEFAULT_NAME, $started = false, $players = [], $lastdeath = "", $state = UHCTask::GRACE;
 
     /**
      * UHCManager constructor.
@@ -89,6 +88,17 @@ class UHCManager
         $this->name = $name;
     }
 
+    /**
+     * @param string $message
+     * @param bool $translate
+     */
+    public function sendMessage(string $message, bool $translate = false)
+    {
+        foreach ($this->getPlayers() as $player){
+            $translate ? $player->sendTranslatedMessage($message) : $player->sendMessage($message);
+        }
+    }
+
     public function start()
     {
         $this->setStarted(true);
@@ -100,10 +110,10 @@ class UHCManager
                     $player->teleport(new Position(mt_rand(-500, 500), 130, mt_rand(-500, 500), $this->getLevel()));
                     $player->getInventory()->clearAll();
                     $player->removeAllEffects();
+                    $player->sendTranslatedMessage(LangManager::START_GAME);
                 }
             }
         }
-        $this->getPlugin()->getServer()->broadcastMessage(Utils::getPrefix() . TextFormat::GREEN . "the game has started!");
         $this->getPlugin()->getServer()->getPluginManager()->callEvent(new StartUHCEvent($this->getPlugin(), $this->getName(), $this->getPlayers()));
     }
 
@@ -154,5 +164,45 @@ class UHCManager
     public function getPlayers() : array
     {
         return $this->players;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastDeath(): string
+    {
+        return $this->lastdeath;
+    }
+
+    /**
+     * @param string $lastdeath
+     */
+    public function setLastDeath(string $lastdeath)
+    {
+        $this->lastdeath = $lastdeath;
+    }
+
+    /**
+     * @return int
+     */
+    public function getState() : int
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param int $state
+     */
+    public function setState(int $state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPvP() : bool
+    {
+        return $this->isStarted() and ($this->getState() == UHCTask::GRACE or $this->getState() == UHCTask::END);
     }
 }

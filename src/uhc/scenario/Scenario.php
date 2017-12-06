@@ -17,6 +17,7 @@ use uhc\events\StartUHCEvent;
 
 abstract class Scenario
 {
+    private $enabled = false;
     /**
      * @param PlayerMoveEvent $event
      */
@@ -63,5 +64,21 @@ abstract class Scenario
     public function getName() : string
     {
         return "default";
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled() : bool
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param bool $enabled
+     */
+    public function setEnabled(bool $enabled = true)
+    {
+        $this->enabled = $enabled;
     }
 }

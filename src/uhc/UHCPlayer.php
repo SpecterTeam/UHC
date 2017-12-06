@@ -77,6 +77,14 @@ class UHCPlayer extends Player
     }
 
     /**
+     * @param string $message
+     */
+    public function sendTranslatedMessage(string $message)
+    {
+        $this->sendMessage(str_replace("{dead}", UHC::getUHCManager()->getLastDeath(), str_replace("{prefix}", Utils::getPrefix(), LangManager::translate($message, $this->getLang()))));
+    }
+
+    /**
      * @return Config
      */
     public function getConfig() : Config

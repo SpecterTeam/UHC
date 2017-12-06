@@ -25,7 +25,6 @@ class UHCTask extends PluginTask
     private $grace_time = self::GRACE_TIME;
     private $end_time = self::END_TIME;
 
-    private $state = self::GRACE;
     private $time = 0;
 
     /**
@@ -87,7 +86,7 @@ class UHCTask extends PluginTask
      */
     public function getState() : int
     {
-        return $this->state;
+        return UHC::getUHCManager()->getState();
     }
 
     /**
@@ -95,7 +94,7 @@ class UHCTask extends PluginTask
      */
     public function setState(int $state)
     {
-        $this->state = $state;
+        UHC::getUHCManager()->setState($state);
     }
 
     /**

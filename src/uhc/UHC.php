@@ -6,6 +6,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use uhc\listener\PlayerListener;
 use uhc\listener\ScenarioListener;
+use uhc\listener\UHCListener;
 use uhc\scenario\ScenarioManager;
 use uhc\task\UHCTask;
 
@@ -100,6 +101,7 @@ class UHC extends PluginBase
     {
         new ScenarioListener($this);
         new PlayerListener($this);
+        new UHCListener($this);
     }
 
     /**
