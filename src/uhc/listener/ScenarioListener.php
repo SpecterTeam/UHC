@@ -30,8 +30,8 @@ class ScenarioListener implements Listener
     public function __construct(UHC $plugin)
     {
         $this->setPlugin($plugin);
-        $plugin->getServer()->getPluginManager()->registerEvents($this, $plugin);
         $plugin->getServer()->getPluginManager()->registerEvent("uhc\\events\\StartUHCEvent", $this, EventPriority::NORMAL, new MethodEventExecutor("onStart"), $plugin, true);
+        $plugin->getServer()->getPluginManager()->registerEvents($this, $plugin);
     }
 
     /**
