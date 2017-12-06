@@ -2,6 +2,8 @@
 
 namespace uhc;
 
+use pocketmine\event\EventPriority;
+use pocketmine\plugin\MethodEventExecutor;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
 use uhc\listener\PlayerListener;

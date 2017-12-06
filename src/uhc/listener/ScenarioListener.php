@@ -11,9 +11,11 @@ namespace uhc\listener;
 
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\EventPriority;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerMoveEvent;
+use pocketmine\plugin\MethodEventExecutor;
 use uhc\events\StartUHCEvent;
 use uhc\UHC;
 
@@ -29,6 +31,7 @@ class ScenarioListener implements Listener
     {
         $this->setPlugin($plugin);
         $plugin->getServer()->getPluginManager()->registerEvents($this, $plugin);
+        $plugin->getServer()->getPluginManager()->registerEvent("uhc\\events\\StartUHCEvent", $this, EventPriority::NORMAL, new MethodEventExecutor("onStart"), $plugin, true);
     }
 
     /**
