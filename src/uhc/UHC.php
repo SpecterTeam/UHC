@@ -3,13 +3,50 @@
 namespace uhc;
 
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
 use uhc\listener\ScenarioListener;
 use uhc\scenario\ScenarioManager;
+use uhc\task\UHCTask;
 
 class UHC extends PluginBase
 {
+    const CONFIG_FILE = "config.yml";
+
     public static $instance;
     public static $uhcmanager, $scenariomanager;
+    public static $config;
+
+    /**
+     * @return Config
+     */
+    public static function getConfigFile() : Config
+    {
+        return self::$config;
+    }
+
+    /**
+     * @param Config $config
+     */
+    public static function setConfigFile(Config $config)
+    {
+        self::$config = $config;
+    }
+
+    public function registerConfig()
+    {
+        if (!is_dir($this->getDataFolder())) @mkdir($this->getDataFolder());
+        self::setConfigFile(new Config($this->getDataFolder() . self::CONFIG_FILE, Config::YAML, [
+            "levels" => [
+                "lobby" => "world",
+                "game" => "UHC"
+            ],
+            "time" => [
+                "grace" => UHCTask::GRACE_TIME,
+                "end" => UHCTask::END_TIME
+            ],
+            "default_lang" => "eng"
+        ]));
+    }
 
 
     public function onEnable()
