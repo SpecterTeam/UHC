@@ -94,7 +94,7 @@ class UHC extends PluginBase
     public function registerManagers()
     {
         self::setScenariomanager(new ScenarioManager($this));
-        self::setUHCManager(new UHCManager($this, self::getConfigFile()->getAll(true)["levels"]["game"]));
+        self::setUHCManager(new UHCManager($this, self::getConfigFile()->getNested("levels.game")));
         self::setLangmanager(new LangManager($this));
     }
 
