@@ -11,6 +11,7 @@ namespace uhc\scenario;
 
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\plugin\PluginException;
@@ -20,6 +21,7 @@ use uhc\events\StopUHCEvent;
 use uhc\scenario\scenarios\CatEyes;
 use uhc\scenario\scenarios\CutClean;
 use uhc\scenario\scenarios\GoldenHead;
+use uhc\scenario\scenarios\NoFall;
 use uhc\UHC;
 
 class ScenarioManager
@@ -41,7 +43,8 @@ class ScenarioManager
         self::setConfig(new Config($plugin->getDataFolder() . self::SCENARIO_FILE, Config::YAML, [
             "CutClean" => true,
             "CatEyes" => true,
-            "GoldenHead" => true
+            "GoldenHead" => true,
+            "NoFall" => true
         ]));
         foreach (self::getConfig()->getAll() as $scenario => $bool){
             if(self::isScenario($scenario)){
@@ -55,9 +58,10 @@ class ScenarioManager
      */
     public static function registerScenarios() : bool
     {
-        self::registerScenario(new CutClean());
-        self::registerScenario(new CatEyes());
-        self::registerScenario(new GoldenHead());
+        self::registerScenario(new CutClean(), true);
+        self::registerScenario(new CatEyes(), true);
+        self::registerScenario(new GoldenHead(), true);
+        self::registerScenario(new NoFall(), true);
         return true;
     }
 
@@ -73,7 +77,7 @@ class ScenarioManager
             if (!isset(self::$scenarios[$scenario->getName()])) {
                 self::$scenarios[$scenario->getName()] = $scenario;
             } else {
-                throw new PluginException("Scenario is already registered!");
+                throw new PluginException("[ScenarioManager] Scenario is already registered!");
             }
         }
     }
@@ -193,6 +197,16 @@ class ScenarioManager
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onStop($event);
+        }
+    }
+
+    /**
+     * @param EntityDamageEvent $event
+     */
+    public function doDamage(EntityDamageEvent $event)
+    {
+        foreach (self::getScenarios() as $scenario){
+            if($scenario->isEnabled()) $scenario->onDamage($event);
         }
     }
 }

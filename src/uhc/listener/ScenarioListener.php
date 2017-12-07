@@ -11,6 +11,7 @@ namespace uhc\listener;
 
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\EventPriority;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
@@ -41,7 +42,7 @@ class ScenarioListener implements Listener
      */
     public function onMove(PlayerMoveEvent $event)
     {
-        UHC::getInstance()::getScenariomanager()->doMove($event);
+        UHC::getScenariomanager()->doMove($event);
     }
 
     /**
@@ -49,7 +50,7 @@ class ScenarioListener implements Listener
      */
     public function onBreak(BlockBreakEvent $event)
     {
-        UHC::getInstance()::getScenariomanager()->doBreak($event);
+        UHC::getScenariomanager()->doBreak($event);
     }
 
     /**
@@ -57,7 +58,7 @@ class ScenarioListener implements Listener
      */
     public function onPlace(BlockPlaceEvent $event)
     {
-        UHC::getInstance()::getScenariomanager()->doPlace($event);
+        UHC::getScenariomanager()->doPlace($event);
     }
 
     /**
@@ -65,7 +66,15 @@ class ScenarioListener implements Listener
      */
     public function onDeath(PlayerDeathEvent $event)
     {
-        UHC::getInstance()::getScenariomanager()->doDeath($event);
+        UHC::getScenariomanager()->doDeath($event);
+    }
+
+    /**
+     * @param EntityDamageEvent $event
+     */
+    public function onDamage(EntityDamageEvent $event)
+    {
+        UHC::getScenariomanager()->doDamage($event);
     }
 
     /**
@@ -73,7 +82,7 @@ class ScenarioListener implements Listener
      */
     public function onStart(StartUHCEvent $event)
     {
-        UHC::getInstance()::getScenariomanager()->doStart($event);
+        UHC::getScenariomanager()->doStart($event);
     }
 
     /**
@@ -81,7 +90,7 @@ class ScenarioListener implements Listener
      */
     public function onStop(StopUHCEvent $event)
     {
-        UHC::getInstance()::getScenariomanager()->doStop($event);
+        UHC::getScenariomanager()->doStop($event);
     }
 
     /**
