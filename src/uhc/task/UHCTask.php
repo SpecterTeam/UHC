@@ -14,10 +14,12 @@ use uhc\UHC;
 
 class UHCTask extends PluginTask
 {
-    const GRACE = 0;
-    const PVP = 1;
-    const END = 2;
+    const STARTING = 0;
+    const GRACE = 1;
+    const PVP = 2;
+    const END = 3;
 
+    const STARTING_TIME = 60;
     const GRACE_TIME = 900;
     //NO PVP Time limit
     const END_TIME = 16;
@@ -49,6 +51,15 @@ class UHCTask extends PluginTask
     public function onRun(int $currentTick)
     {
         switch ($this->getState()){
+            case self::STARTING:
+                $time = $this->getTime();
+                $this->setTime(++$time);
+                if($time == self::STARTING_TIME){
+                    $this->setState(self::GRACE);
+                    $this->setTime(0);
+                }
+            break;
+
             case self::GRACE:
                 $time = $this->getTime();
                 $this->setTime(++$time);

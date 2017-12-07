@@ -18,6 +18,7 @@ use uhc\events\StartUHCEvent;
 use uhc\events\StopUHCEvent;
 use uhc\scenario\scenarios\CatEyes;
 use uhc\scenario\scenarios\CutClean;
+use uhc\scenario\scenarios\GoldenHead;
 use uhc\UHC;
 
 class ScenarioManager
@@ -42,6 +43,7 @@ class ScenarioManager
     {
         self::registerScenario(new CutClean());
         self::registerScenario(new CatEyes());
+        self::registerScenario(new GoldenHead());
         return true;
     }
 

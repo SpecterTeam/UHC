@@ -9,6 +9,7 @@
 namespace uhc\listener;
 
 
+use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\Listener;
@@ -56,6 +57,24 @@ class UHCListener implements Listener
     {
         if(!UHC::getUHCManager()->isPvP()) {
             $event->setCancelled(true);
+        }
+    }
+
+    /**
+     * @param BlockBreakEvent $event
+     */
+    public function onBreak(BlockBreakEvent $event)
+    {
+        $player = $event->getPlayer();
+        if ($player instanceof UHCPlayer){
+            if($player->getLevel()->getName() === $this->getPlugin()->getServer()->getDefaultLevel()->getName()){
+                if (!$player->isOp() or !$player->hasPermission("lobby.break")){
+                    $event->setCancelled(true);
+                }
+            } else
+                if($player->getLevel()->getName() === UHC::getUHCManager()->getName()){
+                    if(!UHC::getUHCManager()->isStarted()){}
+                }
         }
     }
 

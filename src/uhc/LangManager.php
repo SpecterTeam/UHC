@@ -75,8 +75,7 @@ class LangManager
             break;
 
             default:
-                //when message isn't registered it will return the given message
-                return $message;
+                return $message; //when message isn't registered it will return the given message
             break;
         }
     }

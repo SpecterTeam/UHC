@@ -19,7 +19,7 @@ class UHCManager
 {
     const DEFAULT_NAME = "UHC";
 
-    private $plugin, $level, $name = self::DEFAULT_NAME, $started = false, $players = [], $lastdeath = "", $state = UHCTask::GRACE;
+    private $plugin, $level, $name = self::DEFAULT_NAME, $started = false, $players = [], $lastdeath = "", $lastwinner = "", $state = UHCTask::STARTING;
 
     /**
      * UHCManager constructor.
@@ -43,7 +43,7 @@ class UHCManager
     /**
      * @return UHC
      */
-    public function getPlugin(): UHC
+    public function getPlugin() : UHC
     {
         return $this->plugin;
     }
@@ -92,7 +92,7 @@ class UHCManager
      * @param string $message
      * @param bool $translate
      */
-    public function sendMessage(string $message, bool $translate = false)
+    public function broadcastMessage(string $message, bool $translate = false)
     {
         foreach ($this->getPlayers() as $player){
             $translate ? $player->sendTranslatedMessage($message) : $player->sendMessage($message);
@@ -110,11 +110,26 @@ class UHCManager
                     $player->teleport(new Position(mt_rand(-500, 500), 130, mt_rand(-500, 500), $this->getLevel()));
                     $player->getInventory()->clearAll();
                     $player->removeAllEffects();
-                    $player->sendTranslatedMessage(LangManager::START_GAME);
                 }
             }
         }
+        $this->broadcastMessage(LangManager::START_GAME, true);
         $this->getPlugin()->getServer()->getPluginManager()->callEvent(new StartUHCEvent($this->getPlugin(), $this->getName(), $this->getPlayers()));
+    }
+
+    /**
+     * @param UHCPlayer $winner
+     */
+    public function stop(UHCPlayer $winner)
+    {
+        $this->setStarted(false);
+        $this->setLastWinner($winner->getName());
+        foreach ($this->getLevel()->getPlayers() as $player){
+            if($player instanceof UHCPlayer){
+                if($player->isPlaying()) $this->removePlayer($player);
+                $player->teleport($this->getPlugin()->getServer()->getDefaultLevel()->getSpawnLocation());
+            }
+        }
     }
 
     /**
@@ -195,6 +210,7 @@ class UHCManager
      */
     public function setState(int $state)
     {
+        //$this->getPlugin()->getServer()->getPluginManager()->callEvent();
         $this->state = $state;
     }
 
@@ -204,5 +220,21 @@ class UHCManager
     public function isPvP() : bool
     {
         return $this->isStarted() and ($this->getState() == UHCTask::GRACE or $this->getState() == UHCTask::END);
+    }
+
+    /**
+     * @return string
+     */
+    public function getLastWinner() : string
+    {
+        return $this->lastwinner;
+    }
+
+    /**
+     * @param string $lastwinner
+     */
+    public function setLastWinner(string $lastwinner)
+    {
+        $this->lastwinner = $lastwinner;
     }
 }
