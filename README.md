@@ -5,8 +5,6 @@ A full custom UHC's Hosting plugin for PMMP.
 
 ## Developers
 - [@OGFris](https://twitter.com/OGFris) (**Project leader**)
-- [@Infernus101](https://twitter.com/Infernus101)
-- [@Havtic](https://twitter.com/Havtic)
 
 ## Features
 - Scenarios
