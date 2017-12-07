@@ -17,6 +17,7 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\plugin\MethodEventExecutor;
 use uhc\events\StartUHCEvent;
+use uhc\events\StopUHCEvent;
 use uhc\UHC;
 
 class ScenarioListener implements Listener
@@ -30,8 +31,9 @@ class ScenarioListener implements Listener
     public function __construct(UHC $plugin)
     {
         $this->setPlugin($plugin);
-        $plugin->getServer()->getPluginManager()->registerEvent("uhc\\events\\StartUHCEvent", $this, EventPriority::NORMAL, new MethodEventExecutor("onStart"), $plugin, true);
         $plugin->getServer()->getPluginManager()->registerEvents($this, $plugin);
+        $plugin->getServer()->getPluginManager()->registerEvent("uhc\\events\\StartUHCEvent", $this, EventPriority::NORMAL, new MethodEventExecutor("onStart"), $plugin, true);
+        $plugin->getServer()->getPluginManager()->registerEvent("uhc\\events\\StopUHCEvent", $this, EventPriority::NORMAL, new MethodEventExecutor("onStop"), $plugin, true);
     }
 
     /**
@@ -75,9 +77,17 @@ class ScenarioListener implements Listener
     }
 
     /**
+     * @param StopUHCEvent $event
+     */
+    public function onStop(StopUHCEvent $event)
+    {
+        UHC::getInstance()::getScenariomanager()->doStop($event);
+    }
+
+    /**
      * @return UHC
      */
-    public function getPlugin(): UHC
+    public function getPlugin() : UHC
     {
         return $this->plugin;
     }

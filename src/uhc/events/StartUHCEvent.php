@@ -18,6 +18,8 @@ class StartUHCEvent extends PluginEvent
     private $name = "";
     private $players = [];
 
+    public static $handlerList = null;
+
     /**
      * StartUHCEvent constructor.
      * @param UHC $plugin

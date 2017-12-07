@@ -14,6 +14,7 @@ use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use uhc\events\StartUHCEvent;
+use uhc\events\StopUHCEvent;
 
 abstract class Scenario
 {
@@ -54,6 +55,14 @@ abstract class Scenario
      * @param StartUHCEvent $event
      */
     public function onStart(StartUHCEvent $event)
+    {
+        //TODO: Implement it
+    }
+
+    /**
+     * @param StopUHCEvent $event
+     */
+    public function onStop(StopUHCEvent $event)
     {
         //TODO: Implement it
     }

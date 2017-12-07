@@ -15,6 +15,7 @@ use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\plugin\PluginException;
 use uhc\events\StartUHCEvent;
+use uhc\events\StopUHCEvent;
 use uhc\scenario\scenarios\CatEyes;
 use uhc\scenario\scenarios\CutClean;
 use uhc\UHC;
@@ -150,6 +151,16 @@ class ScenarioManager
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onStart($event);
+        }
+    }
+
+    /**
+     * @param StopUHCEvent $event
+     */
+    public function doStop(StopUHCEvent $event)
+    {
+        foreach (self::getScenarios() as $scenario){
+            if($scenario->isEnabled()) $scenario->onStop($event);
         }
     }
 }
