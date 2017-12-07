@@ -22,6 +22,8 @@ class LangManager
     const STOP_GAME = "stop.game";
     const END_GAME = "end.game";
     const DEATH = "died";
+    const JOIN_GAME = "join.game";
+    const QUIT_GAME = "quit.game";
 
     private $default = self::DEFAULT_LANG;
     private $plugin;
@@ -43,12 +45,13 @@ class LangManager
 
     public function registerDefaultLanguage()
     {
-        //TODO: Custom lang support
         $messages = [
             self::START_GAME => "{prefix} the game has started!",
             self::STOP_GAME => "{prefix} the game has stopped!",
             self::END_GAME => "{prefix} the game has ended!",
-            self::DEATH => "{prefix} {death} died."
+            self::DEATH => "{prefix} {death} died.",
+            self::JOIN_GAME => "{prefix} {joined} has joined the game!",
+            self::QUIT_GAME => "{prefix} {left} has left the game!"
         ];
         $config = new Config($this->getPlugin()->getDataFolder() . self::LANGS_FOLDER . DIRECTORY_SEPARATOR . self::DEFAULT_LANG . ".yml", Config::YAML, $messages);
         self::$langs["eng"] = $config->getAll(true);
@@ -61,23 +64,10 @@ class LangManager
      */
     public static function translate(string $message, string $lang)
     {
-        switch (strtolower($message)){
-            case self::START_GAME:
-                return self::$langs[$lang][$message];
-            break;
-
-            case self::STOP_GAME:
-                return self::$langs[$lang][$message];
-            break;
-
-            case self::END_GAME:
-                return self::$langs[$lang][$message];
-            break;
-
-            default:
-                return $message; //when message isn't registered it will return the given message
-            break;
+        if(isset(self::$langs[$lang][$message])){
+            return self::$langs[$lang][$message];
         }
+        return $message;
     }
 
     /**

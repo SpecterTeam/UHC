@@ -16,6 +16,7 @@ use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\utils\TextFormat;
 use uhc\LangManager;
+use uhc\task\UHCTask;
 use uhc\UHC;
 use uhc\UHCPlayer;
 
@@ -66,15 +67,12 @@ class UHCListener implements Listener
     public function onBreak(BlockBreakEvent $event)
     {
         $player = $event->getPlayer();
-        if ($player instanceof UHCPlayer){
-            if($player->getLevel()->getName() === $this->getPlugin()->getServer()->getDefaultLevel()->getName()){
-                if (!$player->isOp() or !$player->hasPermission("lobby.break")){
+        if ($player instanceof UHCPlayer) {
+            if ($player->getLevel()->getName() === UHC::getUHCManager()->getName()) {
+                if (!UHC::getUHCManager()->isStarted() and UHC::getUHCManager()->getState() == UHCTask::STARTING) {
                     $event->setCancelled(true);
                 }
-            } else
-                if($player->getLevel()->getName() === UHC::getUHCManager()->getName()){
-                    if(!UHC::getUHCManager()->isStarted()){}
-                }
+            }
         }
     }
 

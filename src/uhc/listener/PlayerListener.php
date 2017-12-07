@@ -8,6 +8,8 @@
 
 namespace uhc\listener;
 
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerCreationEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use uhc\UHC;
@@ -45,6 +47,36 @@ class PlayerListener implements Listener
     public function onCreation(PlayerCreationEvent $event)
     {
         $event->setPlayerClass(UHCPlayer::class);
+    }
+
+    /**
+     * @param BlockBreakEvent $event
+     */
+    public function onBreak(BlockBreakEvent $event)
+    {
+        $player = $event->getPlayer();
+        if($player instanceof UHCPlayer){
+            if($player->getLevel()->getName() === $this->getPlugin()->getServer()->getDefaultLevel()->getName()){
+                if (!$player->isOp() or !$player->hasPermission("lobby.break")){
+                    $event->setCancelled(true);
+                }
+            }
+        }
+    }
+
+    /**
+     * @param BlockPlaceEvent $event
+     */
+    public function onPlace(BlockPlaceEvent $event)
+    {
+        $player = $event->getPlayer();
+        if($player instanceof UHCPlayer){
+            if($player->getLevel()->getName() === $this->getPlugin()->getServer()->getDefaultLevel()->getName()){
+                if (!$player->isOp() or !$player->hasPermission("lobby.place")){
+                    $event->setCancelled(true);
+                }
+            }
+        }
     }
 
     /**

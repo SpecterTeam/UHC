@@ -14,6 +14,7 @@ use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\plugin\PluginException;
+use pocketmine\utils\Config;
 use uhc\events\StartUHCEvent;
 use uhc\events\StopUHCEvent;
 use uhc\scenario\scenarios\CatEyes;
@@ -23,8 +24,11 @@ use uhc\UHC;
 
 class ScenarioManager
 {
+    const SCENARIO_FILE = "scenarios.yml";
+
     private $plugin;
     private static $scenarios = [];
+    private static $config;
 
     /**
      * ScenarioManager constructor.
@@ -34,6 +38,16 @@ class ScenarioManager
     {
         $this->setPlugin($plugin);
         self::registerScenarios();
+        self::setConfig(new Config($plugin->getDataFolder() . self::SCENARIO_FILE, Config::YAML, [
+            "CutClean" => true,
+            "CatEyes" => true,
+            "GoldenHead" => true
+        ]));
+        foreach (self::getConfig()->getAll() as $scenario => $bool){
+            if(self::isScenario($scenario)){
+                $bool ? self::getScenario($scenario)->setEnabled(true) : self::getScenario($scenario)->setEnabled(false);
+            }
+        }
     }
 
     /**
@@ -62,6 +76,22 @@ class ScenarioManager
                 throw new PluginException("Scenario is already registered!");
             }
         }
+    }
+
+    /**
+     * @return Config
+     */
+    public static function getConfig() : Config
+    {
+        return self::$config;
+    }
+
+    /**
+     * @param Config $config
+     */
+    public static function setConfig(Config $config)
+    {
+        self::$config = $config;
     }
 
     /**
