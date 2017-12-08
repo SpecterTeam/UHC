@@ -1,9 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: FRISCOWZ
- * Date: 12/5/2017
- * Time: 8:35 PM
+ *     UHC  Copyright (C) 2017-2018  SpecterTeam
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace uhc;
@@ -11,6 +20,7 @@ namespace uhc;
 
 use pocketmine\network\SourceInterface;
 use pocketmine\Player;
+use pocketmine\tile\Tile;
 use pocketmine\utils\Config;
 
 class UHCPlayer extends Player
@@ -41,6 +51,11 @@ class UHCPlayer extends Player
             ],
             "lang" => UHC::getLangmanager()->getDefault()
         ]));
+    }
+
+    public function getTilesAround()
+    {
+        $this->getLevel()->getTileById(Tile::CHEST);
     }
 
     /**
@@ -81,7 +96,7 @@ class UHCPlayer extends Player
      */
     public function sendTranslatedMessage(string $message)
     {
-        $this->sendMessage(str_replace("{dead}", UHC::getUHCManager()->getLastDeath(), str_replace("{prefix}", Utils::getPrefix(), LangManager::translate($message, $this->getLang()))));
+        $this->sendMessage(str_replace("{winner}", UHC::getUHCManager()->getLastWinner(), str_replace("{dead}", UHC::getUHCManager()->getLastDeath(), str_replace("{prefix}", Utils::getPrefix(), LangManager::translate($message, $this->getLang())))));
     }
 
     /**

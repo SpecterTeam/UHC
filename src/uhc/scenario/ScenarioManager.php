@@ -1,9 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: FRISCOWZ
- * Date: 12/5/2017
- * Time: 8:50 PM
+ *     UHC  Copyright (C) 2017-2018  SpecterTeam
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace uhc\scenario;
@@ -22,6 +31,7 @@ use uhc\scenario\scenarios\CatEyes;
 use uhc\scenario\scenarios\CutClean;
 use uhc\scenario\scenarios\GoldenHead;
 use uhc\scenario\scenarios\NoFall;
+use uhc\scenario\scenarios\TimeBomb;
 use uhc\UHC;
 
 class ScenarioManager
@@ -29,7 +39,7 @@ class ScenarioManager
     const SCENARIO_FILE = "scenarios.yml";
 
     private $plugin;
-    private static $scenarios = [];
+    public static $scenarios = [];
     private static $config;
 
     /**
@@ -44,7 +54,8 @@ class ScenarioManager
             "CutClean" => true,
             "CatEyes" => true,
             "GoldenHead" => true,
-            "NoFall" => true
+            "NoFall" => true,
+            "TimeBomb" => true
         ]));
         foreach (self::getConfig()->getAll() as $scenario => $bool){
             if(self::isScenario($scenario)){
@@ -62,6 +73,7 @@ class ScenarioManager
         self::registerScenario(new CatEyes(), true);
         self::registerScenario(new GoldenHead(), true);
         self::registerScenario(new NoFall(), true);
+        self::registerScenario(new TimeBomb(), true);
         return true;
     }
 
