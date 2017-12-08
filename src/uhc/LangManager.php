@@ -24,7 +24,7 @@ class LangManager
     const DEATH = "died";
     const JOIN_GAME = "join.game";
     const QUIT_GAME = "quit.game";
-
+    const WIN_GAME = "win.game";
     private $default = self::DEFAULT_LANG;
     private $plugin;
 
@@ -46,12 +46,12 @@ class LangManager
     public function registerDefaultLanguage()
     {
         $messages = [
-            self::START_GAME => "{prefix} the game has started!",
-            self::STOP_GAME => "{prefix} the game has stopped!",
-            self::END_GAME => "{prefix} the game has ended!",
-            self::DEATH => "{prefix} {death} died.",
-            self::JOIN_GAME => "{prefix} {joined} has joined the game!",
-            self::QUIT_GAME => "{prefix} {left} has left the game!"
+            self::START_GAME => "{prefix} &athe game has started!",
+            self::STOP_GAME => "{prefix} &4the game has stopped!",
+            self::END_GAME => "{prefix} &athe game has ended!",
+            self::DEATH => "{prefix} &4{death} died.",
+            self::JOIN_GAME => "{prefix} &7{joined} has joined the game!",
+            self::QUIT_GAME => "{prefix} &7{left} has left the game!"
         ];
         $config = new Config($this->getPlugin()->getDataFolder() . self::LANGS_FOLDER . DIRECTORY_SEPARATOR . self::DEFAULT_LANG . ".yml", Config::YAML, $messages);
         self::$langs["eng"] = $config->getAll(true);
@@ -65,9 +65,9 @@ class LangManager
     public static function translate(string $message, string $lang)
     {
         if(isset(self::$langs[$lang][$message])){
-            return self::$langs[$lang][$message];
+            return Utils::getColors(self::$langs[$lang][$message]);
         }
-        return $message;
+        return Utils::getColors($message);
     }
 
     /**
