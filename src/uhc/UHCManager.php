@@ -42,7 +42,6 @@ class UHCManager
             $plugin->getServer()->loadLevel($name);
             $level = $plugin->getServer()->getLevelByName($name);
         } else {
-        	// Generator::getGeneratorName(Normal::class)
             $plugin->getServer()->generateLevel($name, null, Normal::class);
             $level = $plugin->getServer()->getLevelByName($name);
         }
