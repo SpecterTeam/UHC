@@ -31,7 +31,7 @@ class TimeBomb extends Scenario
     /**
      * @param PlayerDeathEvent $event
      */
-    public function onDeath(PlayerDeathEvent $event)
+    public function onDeath(PlayerDeathEvent $event) : void
     {
         if(UHC::getUHCManager()->isStarted()){
             $event->setDrops([]);
@@ -45,7 +45,7 @@ class TimeBomb extends Scenario
     /**
      * @param UHCPlayer $player
      */
-    public function spawnChest(UHCPlayer $player)
+    public function spawnChest(UHCPlayer $player) : void
     {
         $position = $player->asPosition();
 

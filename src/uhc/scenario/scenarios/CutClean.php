@@ -29,7 +29,7 @@ class CutClean extends Scenario
     /**
      * @param BlockBreakEvent $event
      */
-    public function onBreak(BlockBreakEvent $event)
+    public function onBreak(BlockBreakEvent $event) : void
     {
         switch ($event->getBlock()->getId()){
             case BlockIds::IRON_ORE:

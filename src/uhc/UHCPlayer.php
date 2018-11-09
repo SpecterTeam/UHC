@@ -32,16 +32,15 @@ class UHCPlayer extends Player
     /**
      * UHCPlayer constructor.
      * @param SourceInterface $interface
-     * @param null $clientID
      * @param string $ip
      * @param int $port
      */
-    public function __construct(SourceInterface $interface, $clientID, $ip, $port)
+    public function __construct(SourceInterface $interface, $ip, $port)
     {
-        parent::__construct($interface, $clientID, $ip, $port);
+        parent::__construct($interface, $ip, $port);
     }
 
-    public function initConfig(){
+	public function initConfig() : void {
         if(!is_dir($this->getPlugin()->getDataFolder() . self::PLAYER_FOLDER)) @mkdir($this->getPlugin()->getDataFolder() . self::PLAYER_FOLDER);
         $this->setConfig(new Config($this->getPlugin()->getDataFolder() . self::PLAYER_FOLDER . DIRECTORY_SEPARATOR . $this->getLowerCaseName() . ".yml", Config::JSON, [
             "stats" => [
@@ -53,7 +52,7 @@ class UHCPlayer extends Player
         ]));
     }
 
-    public function getTilesAround()
+    public function getTilesAround() : void
     {
         $this->getLevel()->getTileById(Tile::CHEST);
     }
@@ -69,7 +68,7 @@ class UHCPlayer extends Player
     /**
      * @param string $lang
      */
-    public function setLang(string $lang)
+    public function setLang(string $lang) : void
     {
         $this->getConfig()->set("lang", $lang);
         $this->getConfig()->save(true);
@@ -94,7 +93,7 @@ class UHCPlayer extends Player
     /**
      * @param string $message
      */
-    public function sendTranslatedMessage(string $message)
+    public function sendTranslatedMessage(string $message) : void
     {
         $this->sendMessage(str_replace("{winner}", UHC::getUHCManager()->getLastWinner(), str_replace("{dead}", UHC::getUHCManager()->getLastDeath(), str_replace("{prefix}", Utils::getPrefix(), LangManager::translate($message, $this->getLang())))));
     }
@@ -110,7 +109,7 @@ class UHCPlayer extends Player
     /**
      * @param Config $config
      */
-    public function setConfig(Config $config)
+    public function setConfig(Config $config) : void
     {
         $this->config = $config;
     }

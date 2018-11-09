@@ -32,37 +32,37 @@ abstract class Scenario
     /**
      * @param PlayerMoveEvent $event
      */
-    public function onMove(PlayerMoveEvent $event) {}
+    public function onMove(PlayerMoveEvent $event) : void {}
 
     /**
      * @param BlockBreakEvent $event
      */
-    public function onBreak(BlockBreakEvent $event) {}
+    public function onBreak(BlockBreakEvent $event) : void {}
 
     /**
      * @param BlockPlaceEvent $event
      */
-    public function onPlace(BlockPlaceEvent $event) {}
+    public function onPlace(BlockPlaceEvent $event) : void {}
 
     /**
      * @param PlayerDeathEvent $event
      */
-    public function onDeath(PlayerDeathEvent $event) {}
+    public function onDeath(PlayerDeathEvent $event) : void {}
 
     /**
      * @param StartUHCEvent $event
      */
-    public function onStart(StartUHCEvent $event) {}
+    public function onStart(StartUHCEvent $event) : void {}
 
     /**
      * @param StopUHCEvent $event
      */
-    public function onStop(StopUHCEvent $event) {}
+    public function onStop(StopUHCEvent $event) : void {}
 
     /**
      * @param EntityDamageEvent $event
      */
-    public function onDamage(EntityDamageEvent $event) {}
+    public function onDamage(EntityDamageEvent $event) : void {}
 
     /**
      * @return string
@@ -83,7 +83,7 @@ abstract class Scenario
     /**
      * @param bool $enabled
      */
-    public function setEnabled(bool $enabled = true)
+    public function setEnabled(bool $enabled = true) : void
     {
         $this->enabled = $enabled;
     }

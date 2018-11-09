@@ -19,6 +19,7 @@ namespace uhc\scenario\scenarios;
 
 
 use pocketmine\entity\Effect;
+use pocketmine\entity\EffectInstance;
 use uhc\events\StartUHCEvent;
 use uhc\scenario\Scenario;
 
@@ -28,11 +29,11 @@ class CatEyes extends Scenario
     /**
      * @param StartUHCEvent $event
      */
-    public function onStart(StartUHCEvent $event)
+    public function onStart(StartUHCEvent $event) : void
     {
         $players = $event->getPlayers();
         foreach ($players as $player){
-            $player->addEffect(Effect::getEffect(Effect::NIGHT_VISION)->setVisible(false)->setDuration(PHP_INT_MAX)->setAmplifier(10));
+            $player->addEffect(new EffectInstance(Effect::getEffect(Effect::NIGHT_VISION), PHP_INT_MAX, 10));
         }
     }
 

@@ -61,12 +61,12 @@ class UHC extends PluginBase
     /**
      * @param LangManager $langmanager
      */
-    public static function setLangmanager(LangManager $langmanager)
+    public static function setLangmanager(LangManager $langmanager) : void
     {
         self::$langmanager = $langmanager;
     }
 
-    public function registerConfig()
+    public function registerConfig() : void
     {
         if (!is_dir($this->getDataFolder())) @mkdir($this->getDataFolder());
         self::setConfigFile(new Config($this->getDataFolder() . self::CONFIG_FILE, Config::YAML, [
@@ -83,7 +83,7 @@ class UHC extends PluginBase
     }
 
 
-    public function onEnable()
+    public function onEnable() : void
     {
         self::setInstance($this);
         $this->registerConfig();
@@ -102,19 +102,19 @@ class UHC extends PluginBase
     /**
      * @param UHC $instance
      */
-    public static function setInstance(UHC $instance)
+    public static function setInstance(UHC $instance) : void
     {
         self::$instance = $instance;
     }
 
-    public function registerManagers()
+    public function registerManagers() : void
     {
         self::setScenariomanager(new ScenarioManager($this));
         self::setUHCManager(new UHCManager($this, self::getConfigFile()->getNested("levels.game")));
         self::setLangmanager(new LangManager($this));
     }
 
-    public function registerListeners()
+    public function registerListeners() : void
     {
         new ScenarioListener($this);
         new PlayerListener($this);
@@ -132,7 +132,7 @@ class UHC extends PluginBase
     /**
      * @param UHCManager $uhcmanager
      */
-    public static function setUHCManager(UHCManager $uhcmanager)
+    public static function setUHCManager(UHCManager $uhcmanager) : void
     {
         self::$uhcmanager = $uhcmanager;
     }
@@ -148,7 +148,7 @@ class UHC extends PluginBase
     /**
      * @param ScenarioManager $scenariomanager
      */
-    public static function setScenariomanager(ScenarioManager $scenariomanager)
+    public static function setScenariomanager(ScenarioManager $scenariomanager) : void
     {
         self::$scenariomanager = $scenariomanager;
     }

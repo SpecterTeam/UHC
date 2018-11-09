@@ -17,7 +17,6 @@
 
 namespace uhc;
 
-use pocketmine\level\generator\Generator;
 use pocketmine\level\generator\normal\Normal;
 use pocketmine\level\Level;
 use pocketmine\level\Position;
@@ -43,7 +42,8 @@ class UHCManager
             $plugin->getServer()->loadLevel($name);
             $level = $plugin->getServer()->getLevelByName($name);
         } else {
-            $plugin->getServer()->generateLevel($name, null, Generator::getGeneratorName(Normal::class));
+        	// Generator::getGeneratorName(Normal::class)
+            $plugin->getServer()->generateLevel($name, null, Normal::class);
             $level = $plugin->getServer()->getLevelByName($name);
         }
         $this->setLevel($level);

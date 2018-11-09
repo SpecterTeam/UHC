@@ -52,7 +52,7 @@ class LangManager
         $this->registerDefaultLanguage();
     }
 
-    public function registerDefaultLanguage()
+    public function registerDefaultLanguage() : void
     {
         $messages = [
             self::START_GAME => "{prefix} &athe game has started!",
@@ -71,7 +71,7 @@ class LangManager
      * @param string $lang
      * @return string
      */
-    public static function translate(string $message, string $lang)
+    public static function translate(string $message, string $lang) : string
     {
         if(isset(self::$langs[$lang][$message])){
             return Utils::getColors(self::$langs[$lang][$message]);
@@ -90,7 +90,7 @@ class LangManager
     /**
      * @param string $default
      */
-    public function setDefault(string $default)
+    public function setDefault(string $default) : void
     {
         $this->default = $default;
     }
