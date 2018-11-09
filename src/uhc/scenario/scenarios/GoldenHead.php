@@ -35,8 +35,9 @@ class GoldenHead extends Scenario
     {
         ItemFactory::registerItem(new \uhc\item\GoldenHead(), true);
 
-        UHC::getInstance()->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe([
-        	"iii",
+        UHC::getInstance()->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+		[
+        		"iii",
 			"ihi",
 			"iii"
 		],
