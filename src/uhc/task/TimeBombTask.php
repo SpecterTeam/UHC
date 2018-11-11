@@ -27,12 +27,12 @@ use pocketmine\level\Position;
 use pocketmine\network\mcpe\protocol\AddPlayerPacket;
 use pocketmine\network\mcpe\protocol\PlayerSkinPacket;
 use pocketmine\network\mcpe\protocol\RemoveEntityPacket;
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 use pocketmine\utils\TextFormat;
 use uhc\UHC;
 use uhc\Utils;
 
-class TimeBombTask extends PluginTask
+class TimeBombTask extends Task
 {
     private $position;
     private $time = 30;
@@ -83,7 +83,7 @@ class TimeBombTask extends PluginTask
     /**
      * @param int $currentTick
      */
-    public function onRun(int $currentTick)
+    public function onRun(int $currentTick) : void
     {
         $time = $this->getTime();
 
@@ -115,7 +115,7 @@ class TimeBombTask extends PluginTask
     /**
      * @param Position $position
      */
-    public function setPosition(Position $position)
+    public function setPosition(Position $position) : void
     {
         $this->position = $position;
     }

@@ -18,6 +18,7 @@ namespace uhc\item;
 
 
 use pocketmine\entity\Effect;
+use pocketmine\entity\EffectInstance;
 use pocketmine\item\GoldenApple;
 use pocketmine\utils\TextFormat;
 
@@ -38,8 +39,8 @@ class GoldenHead extends GoldenApple
     public function getAdditionalEffects() : array
     {
         return [
-            Effect::getEffect(Effect::REGENERATION)->setAmplifier(1)->setDuration(20 * ($this->getDamage() == 1 ? 10 : 5)),
-            Effect::getEffect(Effect::ABSORPTION)->setDuration(20 * 120)
+			new EffectInstance(Effect::getEffect(Effect::REGENERATION), 20 * ($this->getDamage() == 1 ? 10 : 5), 1),
+			new EffectInstance(Effect::getEffect(Effect::ABSORPTION), 240, 1)
         ];
     }
 

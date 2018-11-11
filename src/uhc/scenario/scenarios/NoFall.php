@@ -25,7 +25,7 @@ class NoFall extends Scenario
     /**
      * @param EntityDamageEvent $event
      */
-    public function onDamage(EntityDamageEvent $event)
+    public function onDamage(EntityDamageEvent $event) : void
     {
         if ($event->getCause() == EntityDamageEvent::CAUSE_FALL){
             $event->setCancelled(true);

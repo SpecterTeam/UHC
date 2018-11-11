@@ -81,7 +81,7 @@ class ScenarioManager
      * @param Scenario $scenario
      * @param bool $force
      */
-    public static function registerScenario(Scenario $scenario, bool $force = false)
+    public static function registerScenario(Scenario $scenario, bool $force = false) : void
     {
         if($force){
             self::$scenarios[$scenario->getName()] = $scenario;
@@ -105,7 +105,7 @@ class ScenarioManager
     /**
      * @param Config $config
      */
-    public static function setConfig(Config $config)
+    public static function setConfig(Config $config) : void
     {
         self::$config = $config;
     }
@@ -147,7 +147,7 @@ class ScenarioManager
     /**
      * @param UHC $plugin
      */
-    public function setPlugin(UHC $plugin)
+    public function setPlugin(UHC $plugin) : void
     {
         $this->plugin = $plugin;
     }
@@ -155,7 +155,7 @@ class ScenarioManager
     /**
      * @param PlayerMoveEvent $event
      */
-    public function doMove(PlayerMoveEvent $event)
+    public function doMove(PlayerMoveEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onMove($event);
@@ -165,7 +165,7 @@ class ScenarioManager
     /**
      * @param BlockBreakEvent $event
      */
-    public function doBreak(BlockBreakEvent $event)
+    public function doBreak(BlockBreakEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onBreak($event);
@@ -175,7 +175,7 @@ class ScenarioManager
     /**
      * @param BlockPlaceEvent $event
      */
-    public function doPlace(BlockPlaceEvent $event)
+    public function doPlace(BlockPlaceEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onPlace($event);
@@ -185,7 +185,7 @@ class ScenarioManager
     /**
      * @param PlayerDeathEvent $event
      */
-    public function doDeath(PlayerDeathEvent $event)
+    public function doDeath(PlayerDeathEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onDeath($event);
@@ -195,7 +195,7 @@ class ScenarioManager
     /**
      * @param StartUHCEvent $event
      */
-    public function doStart(StartUHCEvent $event)
+    public function doStart(StartUHCEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onStart($event);
@@ -205,7 +205,7 @@ class ScenarioManager
     /**
      * @param StopUHCEvent $event
      */
-    public function doStop(StopUHCEvent $event)
+    public function doStop(StopUHCEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onStop($event);
@@ -215,7 +215,7 @@ class ScenarioManager
     /**
      * @param EntityDamageEvent $event
      */
-    public function doDamage(EntityDamageEvent $event)
+    public function doDamage(EntityDamageEvent $event) : void
     {
         foreach (self::getScenarios() as $scenario){
             if($scenario->isEnabled()) $scenario->onDamage($event);

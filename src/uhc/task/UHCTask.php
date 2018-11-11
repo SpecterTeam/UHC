@@ -18,10 +18,10 @@
 namespace uhc\task;
 
 
-use pocketmine\scheduler\PluginTask;
+use pocketmine\scheduler\Task;
 use uhc\UHC;
 
-class UHCTask extends PluginTask
+class UHCTask extends Task
 {
     const STARTING = 0;
     const GRACE = 1;
@@ -160,7 +160,7 @@ class UHCTask extends PluginTask
     /**
      * @param int $end_time
      */
-    public function setEndTime(int $end_time)
+    public function setEndTime(int $end_time) : void
     {
         $this->end_time = $end_time;
     }

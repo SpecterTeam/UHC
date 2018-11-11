@@ -34,24 +34,32 @@ class GoldenHead extends Scenario
     public function __construct()
     {
         ItemFactory::registerItem(new \uhc\item\GoldenHead(), true);
-        UHC::getInstance()->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(new \uhc\item\GoldenHead(1), [
-            "iii",
-            "ihi",
-            "iii"
-        ], [
-            "i" => Item::get(ItemIds::GOLD_INGOT, 0, 1),
-            "h" => Item::get(ItemIds::SKULL, 0, 1)
-        ]));
+
+        UHC::getInstance()->getServer()->getCraftingManager()->registerShapedRecipe(new ShapedRecipe(
+		[
+        		"iii",
+			"ihi",
+			"iii"
+		],
+		[
+        	"i" => Item::get(ItemIds::GOLD_INGOT, 0, 1),"h" => Item::get(ItemIds::SKULL, 0, 1)
+		],
+		[
+			new \uhc\item\GoldenHead(1)
+		]
+		));
     }
 
     /**
      * @param PlayerDeathEvent $event
      */
-    public function onDeath(PlayerDeathEvent $event)
+    public function onDeath(PlayerDeathEvent $event) : void
     {
         if(UHC::getUHCManager()->isStarted()){
             if(!ScenarioManager::getScenario("TimeBomb")->isEnabled()) {
+
                 //DeathPole
+
                 $position = $event->getPlayer()->asPosition();
 
                 $position->getLevel()->setBlock($position, Block::get(BlockIds::SKULL_BLOCK, Skull::TYPE_HUMAN));
