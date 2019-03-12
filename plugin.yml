@@ -2,4 +2,4 @@ name: UHC
 version: 1.0.0
 author: Fris
 main: uhc\UHC
-api: [3.0.0-ALPHA9]
+api: [3.5.0]
